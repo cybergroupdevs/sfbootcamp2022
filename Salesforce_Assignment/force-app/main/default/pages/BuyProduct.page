@@ -1,0 +1,63 @@
+<apex:page controller="New_CustomerClass" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0">
+
+    <style>
+        html {
+        font-size: 15px;
+        }
+
+        h1 {
+        font-size: 15px;
+        }
+        h2 {
+        font-size: 12px;
+        }
+        .red {
+        color: red;
+        }
+        .dataTable  th{
+        padding: 11px 2px 10px 5px;
+        }
+        .dataTable td {
+        padding: 5px 2px 5px 5px;
+        }
+        #ParentDiv input,
+        #ParentDiv select {
+        margin-right: 5px;
+
+        }
+    </style>
+    <apex:form id="createCustomerForm">
+       <apex:outputPanel styleClass="dataTable" >
+            <apex:pageBlock >
+                <table id = "ParentDiv" border="0">
+                   <tr>
+                    <td>
+                       Select Type to Filter list:
+                       </td>
+                    <td>
+                        <apex:selectList size="1" value="{!typePickvalue}">
+                    <apex:actionSupport event="onchange" action="{!getProducts}" rerender="table1"/>
+                    <apex:selectOption itemLabel="--None--" itemValue="--None--" ></apex:selectOption>
+                    <apex:selectOption itemLabel="Account" itemValue="Account" ></apex:selectOption>
+                    <apex:selectOption itemLabel="Deposit" itemValue="Deposit" ></apex:selectOption>
+                    <apex:selectOption itemLabel="Loan" itemValue="Loan"></apex:selectOption>
+                </apex:selectList>
+                       </td>
+                    </tr>
+
+                    <apex:pageBlockTable value="{!ProductList}" var="pr" id="table1">
+                        <apex:column ><apex:inputCheckbox value="{!pr.Is_Selected__c}" id="select"/></apex:column>
+                        <apex:column value="{!pr.name}"/>
+                         <apex:column value="{!pr.ProductCode}"/>
+                         <apex:column value="{!pr.Type__c}"/>
+                    </apex:pageBlockTable>
+                 </table>
+                <br/>
+                <br/>
+                <apex:commandButton value="BuyProduct" id="BuyProduct" action="{!buyProduct}" />
+
+           </apex:pageBlock>
+     </apex:outputPanel>  
+    </apex:form>
+
+</apex:page>
