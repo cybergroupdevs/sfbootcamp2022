@@ -12,7 +12,7 @@ public class ClassCustomer {
     public String customerCountry {get; set;}
     public string typePickvalue{get; set;}
 	public list<Product2> productLis{get; set;}
-	public List<Product2> ProductList =[select id,name,type__c,ProductCode from Product2];
+	public List<Product2> ProductList =[select id,name,type__c,	Is_Selected__c,ProductCode from Product2];
     public  ClassCustomer(){
         Customer__c custom = new Customer__c();
     }
@@ -21,7 +21,7 @@ public class ClassCustomer {
     }
      public void getProducts() {
          if(typePickvalue != '--None--'){
-        ProductList = new list<Product2>([select id,name,type__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
+        ProductList = new list<Product2>([select id,name,type__c,Is_Selected__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
          }
     }
      public PageReference buyProduct() {
@@ -42,15 +42,26 @@ public class ClassCustomer {
         List<Recordtype> recList=[select id,name from recordtype where sObjectType='Bank_Account__c'];
         List<Bank_Account__c> acclist=new List<Bank_Account__c>();
         for(Recordtype rec:recList){
+            if(rec.name.contains('Account'))
+
+                {
+                    Id recid=rec.id;
+                    Bank_Account__c acc = new Bank_Account__c(Name='Harsh',Product__c=selectedProducts[0].id,Customer__c=customerId,Recordtypeid=recid);
+                    acclist.add(acc);
+                }
             if(selectedProducts[0].type__c=='Loan'){
-                // String
                 if(rec.name.contains(selectedProducts[0].type__c)){
                     Id recid=rec.id;
-                    Bank_Account__c acc=new Bank_Account__c(Product__c=selectedProducts[0].id,Customer__c=customerId,Name='Mahek',Recordtypeid=recid);
+                    Bank_Account__c acc = new Bank_Account__c(Product__c=selectedProducts[0].id,Customer__c=customerId,Name='Mahek',Recordtypeid=recid);
                     acclist.add(acc);
-
                 }
             }
+            else if(rec.name.contains('Deposit'))
+                {
+                    Id recid=rec.id;
+                    Bank_Account__c acc=new Bank_Account__c(Name='Harsh',Product__c=selectedProducts[0].id,Customer__c=customerId,Recordtypeid=recid);
+                    acclist.add(acc);
+                }
         }
         insert acclist;
         System.debug('accList :: '+acclist);
@@ -61,7 +72,7 @@ public class ClassCustomer {
   public PageReference createCustomer() {
         system.debug('inside createCustomer');
         PageReference pgRef = ApexPages.currentPage();
-        pgRef = new PageReference('/apex/BuyProductPage');
+        pgRef = new PageReference('/apex/BuyProduct');
         pgRef.setRedirect(true);
         return pgRef;
     }
