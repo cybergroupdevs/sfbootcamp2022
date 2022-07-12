@@ -46,7 +46,7 @@ public List<Product2> ProductList =[select id,name,type__c,ProductCode from Prod
                 // String
                 if(rec.name.contains(selectedProducts[0].type__c)){
                     Id recid=rec.id;
-                    Bank_Account__c acc=new Bank_Account__c(Product__c=selectedProducts[0].id,Customer__c=customerId,Name='Mahek',Recordtypeid=recid);
+                    Bank_Account__c acc=new Bank_Account__c(Product__c=selectedProducts[0].id,Customer__c=customerId,Name='Kunal',Recordtypeid=recid);
                     acclist.add(acc);
 
                 }
