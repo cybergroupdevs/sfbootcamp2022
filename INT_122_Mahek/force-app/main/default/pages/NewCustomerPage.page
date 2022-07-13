@@ -99,21 +99,4 @@
            </apex:pageBlock>
      </apex:outputPanel>
     </apex:form>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script>
-     j$ = jQuery.noConflict();
-
-    j$(document).ready(function() {
-        var isValid=false;
-        j$('[id$=createCustomer]').click(function() {
-            alert('button is clicked');
-       console.log('Name is not null '+j$('[id$=name]').val());
-     console.log('Name is not null '+j$('[id$=phone]').val());
-     console.log('Name is not null '+j$('[id$=dob]').val());
-        });
-    });
-
-
-    </script>
-
 </apex:page>
