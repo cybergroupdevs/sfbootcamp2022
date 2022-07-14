@@ -33,6 +33,7 @@
 
         }
     </style>
+    
     <apex:form id="createCustomerForm">
        <apex:outputPanel styleClass="dataTable" >
             <apex:pageBlock >
