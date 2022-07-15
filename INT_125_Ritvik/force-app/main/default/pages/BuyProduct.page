@@ -1,4 +1,4 @@
-<apex:page controller="Customer_Class" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0">
+<apex:page controller="NewCustomer_Class" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0">
 
     <style>
         html {
@@ -53,6 +53,7 @@
                     </tr>
 
                     <apex:pageBlockTable value="{!ProductList}" var="pr" id="table1">
+                        
                         <apex:column value="{!pr.name}"/>
                          <apex:column value="{!pr.ProductCode}"/>
                          <apex:column value="{!pr.Type__c}"/>

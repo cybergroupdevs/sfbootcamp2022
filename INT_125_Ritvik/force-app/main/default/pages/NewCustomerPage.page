@@ -1,4 +1,4 @@
-<apex:page Controller="Customer_Class" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0" >
+<apex:page Controller="NewCustomer_Class" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0" >
     <style>
         html {
         font-size: 15px;
@@ -64,32 +64,41 @@
                         <td>
                            Address:
                         </td>
+                    </tr>
+                        <tr>
                         <td>
                            Street:
                         </td>
                         <td width="10">
                             <apex:inputText value="{!customerStreet}" id="Street" />
                         </td>
-
+                            </tr>
+                   
+                    <tr>
                         <td>
                            City:
                         </td>
                         <td width="10">
                             <apex:inputText value="{!customerCity}" id="City" />
                         </td>
-
+                      </tr>
+                    <tr>
                             <td>
                            Postal Code:
                         </td>
                         <td width="10">
                             <apex:inputText value="{!customerCode}" id="PostalCode" />
                         </td>
+                        </tr>
+                    <tr>
                         <td>
                            State:
                         </td>
                         <td width="10">
                             <apex:inputText value="{!customerState}" id="State" />
                         </td>
+                        </tr>
+                    <tr>
                         <td>
                            Country:
                         </td>
