@@ -1,0 +1,66 @@
+<template>
+    <lightning-card title="TransactionLWC" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <label class="slds-form-element__label" for="select-01">
+
+                 <abbr class="slds-required" title="required">* </abbr>Select Sender</label>
+                
+                <div class="slds-form-element__control">
+                
+                 <div class="slds-select_container">
+                
+                <select class="slds-select" id="select-01" required="">
+                
+                <option value="">Select…</option>
+                
+                <option>Current Account</option>
+                
+                <option>Saving Account</option>
+                
+                </select>
+                
+                </div>
+                
+                 </div>
+                
+            </div>
+                
+                <div class="slds-form-element">
+                
+                <label class="slds-form-element__label" for="select-02">
+                
+                <abbr class="slds-required" title="required">* </abbr>Select Receiver</label>
+                
+                 <div class="slds-form-element__control">
+                
+                <div class="slds-select_container">
+                
+                <select class="slds-select" id="select-02" required="">
+                
+                 <option value="">Select…</option>
+                
+                <option>Deposit Account</option>
+                
+                <option>Saving Account</option>
+                
+                <option>Loan Account</option>
+                
+                 </select>
+                
+                 </div>
+                
+                </div>
+                
+                </div>
+                
+                <div class="slds-m-around_medium">
+                
+                <lightning-input label="Enter Amount" value={greeting} onchange={changeHandler}></lightning-input>
+                
+                </div>
+                
+                
+                
+                <lightning-button variant="Transact" label="Transact" title="Primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+      </lightning-card>
+</template>
