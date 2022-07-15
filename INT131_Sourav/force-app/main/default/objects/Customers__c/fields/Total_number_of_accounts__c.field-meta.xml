@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_number_of_accounts__c</fullName>
+    <externalId>false</externalId>
+    <label>Total number of accounts</label>
+    <summaryForeignKey>Bank_Account__c.Customers__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

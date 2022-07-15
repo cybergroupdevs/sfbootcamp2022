@@ -1,0 +1,110 @@
+<apex:page Controller="CustomerClass" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0" >
+    <style>
+        html {
+        font-size: 20px;
+        }
+
+        h1 {
+        font-size: 20px;
+        }
+
+        h2 {
+        font-size: 15px;
+        }
+		input{
+       	box-shadow: 1px 2px #888888;
+        }
+        .dataTable td {
+        padding: 5px 2px 5px 5px;
+        color:grey;
+        }
+        #ParentDiv input,
+        #ParentDiv select {
+        margin-right: 20px;
+        }
+    </style>
+     <apex:form id="createCustomerForm">
+       <apex:outputPanel styleClass="dataTable" >
+            <apex:pageBlock >
+                <table id = "ParentDiv" border="0">
+                     <tr>
+                        <td>
+                          Full Name:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerName}" id="name" />
+                         </td>
+                          <td>
+                           Mobile No.:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerPhone}" id="phone" />
+                         </td>
+                    </tr>
+                     <tr>
+                        <td>
+                           Date Of Birth:
+                        </td>
+                        <td width="10">
+                            <apex:input type="date" value="{!customerDOB}"/>
+                         </td>
+                            <td>
+                           Address:
+                        </td>
+                          <td width="10">
+                            <apex:inputText value="{!customerAddress}" id="Address" />
+                        </td>
+                    </tr>
+                    <tr>                     
+                        <td>
+                           Street:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerStreet}" id="Street" />
+                        </td>
+
+                        <td>
+                           City:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerCity}" id="City" />
+                        </td>
+                    </tr>
+
+                          <tr>
+                              <td>
+                           Zip Code:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerCode}" id="PostalCode" />
+                        </td>
+                        <td>
+                           Country:
+                        </td>
+                        <td width="10">
+                            <apex:inputText value="{!customerCountry}" id="Country" />
+                        </td>
+                    </tr>
+                </table>
+                <apex:commandButton value="Create"  id="createCustomer" action="{!createCustomer}" />
+           </apex:pageBlock>
+     </apex:outputPanel>
+    </apex:form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+     j$ = jQuery.noConflict();
+
+    j$(document).ready(function() {
+        var isValid=false;
+        j$('[id$=createCustomer]').click(function() {
+            alert('A new Customer Created');
+       console.log('Name is not null '+j$('[id$=name]').val());
+     console.log('Name is not null '+j$('[id$=phone]').val());
+     console.log('Name is not null '+j$('[id$=dob]').val());
+        });
+    });
+
+
+    </script>
+
+</apex:page>
