@@ -43,30 +43,29 @@ public class CustomerClass {
                 selectedProducts.add(res);
             }
         }
+        Map<Id,String> prodIdTypeMap =new Map<Id,String>();
+        for(Product2 pod: selectedProducts){
+            prodIdTypeMap.put(pod.id,pod.Type__c);
+        }
         List<Recordtype> recordList=[select id,name from recordtype where sObjectType='Bank_Account__c'];
         List<Bank_Account__c> accountlist=new List<Bank_Account__c>();
-        for(Recordtype rec:recordList)
-        {
-                if(selectedProducts.size()>1)
-                {
-                    system.debug('size greater');
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'You cannot Select Multiple Products'));
-                    return pgRef;
-                }
-               if(rec.name.contains(selectedProducts[0].type__c))
+      for(Id pid:prodIdTypeMap.keySet()){
+            String ptype=prodIdTypeMap.get(pid);
+            for(Recordtype rec:recordList)
+            {
+                if(rec.name.contains(ptype))
                 {
                     Id recid=rec.id;
-                    Bank_Account__c acc=new Bank_Account__c(Name=customerList[0].name,Product__c=selectedProducts[0].id,Customers__c=customerList[0].id,Recordtypeid=recid);
+                    Bank_Account__c acc=new Bank_Account__c(Name=customerList[0].name,Product__c=selectedProducts[0].id,Customers__c=customerList[0].id,Recordtypeid=recid,Amount__c=10000);
+                    accountlist.add(acc);
+                    break;   
+                }
+                else if(ptype=='Account'){
+                    Bank_Account__c acc=new Bank_Account__c(Name=customerList[0].name,Product__c=selectedProducts[0].id,Customers__c=customerList[0].id,Amount__c=10000);
                     accountlist.add(acc);
                     break;
                 }
-             else if((selectedProducts[0].type__c)=='Account')
-                {
-                    Bank_Account__c acc=new Bank_Account__c(Name=customerList[0].name,Product__c=selectedProducts[0].id,Customers__c=customerList[0].id);
-                    accountlist.add(acc);
-                    break;
-            
-                }
+            }
         }
         insert accountlist;
         pgRef=new PageReference('/'+accountlist[0].id);

@@ -1,0 +1,63 @@
+<template>
+
+    <lightning-card title="TransactionComponent" icon-name="custom:custom14">
+
+        <lightning-combobox
+
+        name="progress"
+
+        label="Sender"
+
+        value={value}
+
+        placeholder="Select Sender"
+
+        options={Senderoptions}
+
+        onchange={handleChange} >
+
+    </lightning-combobox>
+
+    <lightning-combobox
+
+    name="progress"
+
+    label="Receiver"
+
+    value={valueReciever}
+
+    placeholder="Select Reciever"
+
+    options={Recieveroptions}
+
+    onchange={handleChange} >
+
+</lightning-combobox><div class="slds-m-around_medium">
+
+    <lightning-input label="Enter Amount" value={greeting} onchange={changeHandler}></lightning-input>
+
+</div>
+
+<lightning-button variant="Transact" label="Transact" title="Primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+
+</lightning-card>
+
+
+
+<lightning-card title="My BankAccount Record" >
+
+    <template if:true={BankAccount.data}>
+
+        <div class="slds-m-around_medium">
+
+            <p>{BankAccName}</p>  
+
+            <p>{CustName}</p>  
+
+        </div>
+
+    </template>
+
+</lightning-card>
+
+</template>
