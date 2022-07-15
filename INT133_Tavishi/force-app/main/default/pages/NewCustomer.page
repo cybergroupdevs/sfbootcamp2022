@@ -1,4 +1,4 @@
-<apex:page controller="customer_new" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0" >
+<apex:page controller="New_Customer" lightningStylesheets="true" title="Create Customer" sidebar="false" docType="html-5.0" >
     <style>
         html {
         font-size: 15px;
@@ -57,7 +57,7 @@
                            Date Of Birth:
                         </td>
                         <td width="10">
-                            <apex:input type="date" value="{!customerDOB}"/>
+                            <apex:input type="date" value="{!customerdate_of_birth}"/>
                          </td>
                     </tr>
                     <tr>
@@ -111,7 +111,7 @@
         var isValid=false;
         j$('[id$=createCustomer]').click(function() {
             alert('button is clicked');
-       console.log('Name is not null '+j$('[id$=name]').val());
+     console.log('Name is not null '+j$('[id$=name]').val());
      console.log('Name is not null '+j$('[id$=phone]').val());
      console.log('Name is not null '+j$('[id$=dob]').val());
         });

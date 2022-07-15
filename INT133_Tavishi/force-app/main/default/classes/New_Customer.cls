@@ -1,30 +1,30 @@
-public class customer_new {
+public class New_Customer {
 public String customerName {get; set;}
 public Boolean errorOnPage {get; set;}
-public String customerPhone {get; set;}
-public Date customerDOB {get; set;}
+public Date customerdate_of_birth {get; set;}
 public String customerStreet {get; set;}
 public String customerCity {get; set;}
 public String customerCode {get; set;}
 public String customerHouseNo {get; set;}
 public String customerCountry {get; set;}
-public string typePickvalue {get; set;}
-public boolean checkbox {get;set;}
-public String customerId {get;set;}
+public String customerPhone {get; set;}
+public string TypePickvalue{get; set;}
+public boolean checkbox{get;set;}
+public String customerId{get;set;}
 public list<Customer__c> custList{get; set;}
 public List<Product2> ProductList =[select id,name,type__c,Is_Selected__c,ProductCode from Product2];
-public customer_new(){
-    Customer__c cust=new Customer__c();
-}
-public List<Product2> getProductList(){
-    return ProductList;
-}
-public void getProducts() {
-    if(typePickvalue != '--None--'){
-        ProductList = new list<Product2>([select id,name,type__c,Is_Selected__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
+    public New_Customer(){
+        Customer__c cust=new Customer__c();
     }
-}
-public PageReference Product_page() {
+    public List<Product2> getProductList(){
+        return ProductList;
+    }
+    public void getProducts() {
+        if(typePickvalue != '--None--'){
+            ProductList = new list<Product2>([select id,name,type__c,Is_Selected__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
+        }
+    }
+public PageReference BuyProduct() {
     String query='';
     query=ApexPages.currentPage().getParameters().get('id');
     system.debug('g='+query);
@@ -33,22 +33,18 @@ public PageReference Product_page() {
     List<Product2> selectedProducts=new List<Product2>();
     for(Product2 con:ProductList){
         if(con.Is_Selected__c==true){
-            selectedProducts.add(con);
-        }
+            selectedProducts.add(con);}
     }
     system.debug('selected Products'+selectedProducts);
     Map<Id,String> prodIdTypeMap =new Map<Id,String>();
     for(Product2 pod: selectedProducts){
-        prodIdTypeMap.put(pod.id,pod.Type__c);
-    }
+        prodIdTypeMap.put(pod.id,pod.Type__c);}
     List<Recordtype> recList=[select id,name from recordtype where sObjectType='Bank_Account__c'];
     List<Bank_Account__c> acclist=new List<Bank_Account__c>();
     for(Id pid:prodIdTypeMap.keySet()){
         String ptype=prodIdTypeMap.get(pid);
-        for(Recordtype rec:recList)
-        {
-            if(rec.name.contains(ptype))
-            {
+        for(Recordtype rec:recList){
+            if(rec.name.contains(ptype)){
                 Id recid=rec.id;
                 Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=selectedProducts[0].id,Customer__c=custList[0].id,Recordtypeid=recid);
                 acclist.add(acc);
@@ -67,7 +63,7 @@ public PageReference Product_page() {
     return pgRef;
 }
 public PageReference createCustomer() {
-    Customer__c cust=new Customer__c(Name=customerName,Date_of_Birth__c=customerDOB,Phone__c=customerPhone,Street__c=customerStreet,City__c=customerCity,Postal_Code__c=customerCode,HouseNo__c=customerHouseNo,Country__c=customerCountry);
+    Customer__c cust=new Customer__c(Name=customerName,date_of_birth__c=customerdate_of_birth,Phone__c=customerPhone,Street__c=customerStreet,City__c=customerCity,Postal_Code__c=customerCode,HouseNo__c=customerHouseNo,Country__c=customerCountry);
     system.debug('inside createCustomer '+cust);
     insert cust;
     system.debug('inside createCustomer');
