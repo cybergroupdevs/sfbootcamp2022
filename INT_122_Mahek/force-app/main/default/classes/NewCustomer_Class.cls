@@ -51,12 +51,12 @@ public class NewCustomer_Class {
                 if(rec.name.contains(ptype))
                 {
                     Id recid=rec.id;
-                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=selectedProducts[0].id,Customer__c=custList[0].id,Recordtypeid=recid,Amount__c=10000);
+                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=pid,Customer__c=custList[0].id,Recordtypeid=recid,Amount__c=10000);
                     acclist.add(acc);
                     break;   
                 }
                 else if(ptype=='Account'){
-                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=selectedProducts[0].id,Customer__c=custList[0].id,Amount__c=10000);
+                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=pid,Customer__c=custList[0].id,Amount__c=10000);
                     acclist.add(acc);
                     break;
                 }
