@@ -1,4 +1,4 @@
-public class New_customer {
+public class New_Customer {
     public String customerName {get; set;}
     public Boolean errorOnPage {get; set;}
     public String customerPhone {get; set;}
@@ -9,66 +9,63 @@ public class New_customer {
     public String customerState {get; set;}
     public String customerCountry {get; set;}
     public string typePickvalue{get; set;}
-    public list<Product2> productLis{get; set;}
     public boolean checkbox{get;set;}
     public String customerId{get;set;}
-    public List<Product2> ProductList =[select id,name,type__c,ProductCode from Product2];
-    public  New_Customer(){
-        Customer__c custom=new Customer__c();
+    public list<Customer__c> custList{get; set;}
+    public List<Product2> ProductList =[select id,name,type__c,Is_Selected__c,ProductCode from Product2];
+    public New_Customer(){
+        Customer__c cust=new Customer__c();
     }
     public List<Product2> getProductList(){
-    return     ProductList;
+     return ProductList;
     }
-     public void getProducts() {
-         if(typePickvalue != '--None--'){
-        ProductList = new list<Product2>([select id,name,type__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
-         }
-    }
-        public PageReference buyProduct() {
-        Customer__c custom=new Customer__c(Name=customerName,DOB__c=customerDOB,Phone__c=customerPhone,Street__c=customerStreet,City__c=customerCity,Postal_Code__c=customerCode,State__c=customerState,Country__c=customerCountry);
-        system.debug('inside createCustomer '+custom);
-        insert custom;
-        customerId=custom.id;
-        System.debug(customerId);
-
-        System.debug('customer id in buy prod is : '+customerId);
+    public void getProducts() {
+        if(typePickvalue != '--None--'){
+            ProductList = new list<Product2>([select id,name,type__c,Is_Selected__c,ProductCode from Product2 WHERE type__c =: typePickvalue]);
+        }}
+    public PageReference buyProduct() {
+        String query='';
+        query=ApexPages.currentPage().getParameters().get('id');
+        system.debug('g='+query);
+        CustList = new List<Customer__c>([select id,name from customer__c where id=:query]);
         PageReference pgRef = ApexPages.currentPage();
         List<Product2> selectedProducts=new List<Product2>();
         for(Product2 con:ProductList){
             if(con.Is_Selected__c==true){
-                selectedProducts.add(con);
-            }
+                selectedProducts.add(con);}
         }system.debug('selected Products'+selectedProducts);
+        Map<Id,String> prodIdTypeMap =new Map<Id,String>();
+        for(Product2 pod: selectedProducts){
+            prodIdTypeMap.put(pod.id,pod.Type__c);}
         List<Recordtype> recList=[select id,name from recordtype where sObjectType='Bank_Account__c'];
         List<Bank_Account__c> acclist=new List<Bank_Account__c>();
-            for(Recordtype record:recList){
-                if(record.name.contains('Account')){
-                    Id recid=record.id;
-                    Bank_Account__c acc=new Bank_Account__c(Name='Priyanka',Product__c=selectedProducts[0].id,Customer__c=customerId,Recordtypeid=recid);
+        for(Id pid:prodIdTypeMap.keySet()){
+            String ptype=prodIdTypeMap.get(pid);
+            for(Recordtype rec:recList){
+                if(rec.name.contains(ptype)){
+                    Id recid=rec.id;
+                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=selectedProducts[0].id,Customer__c=custList[0].id,Recordtypeid=recid);
                     acclist.add(acc);
-                }else if(record.name.contains('Deposit'))
-
-                {
-
-                    Id recid=record.id;
-                    Bank_Account__c acc=new Bank_Account__c(Name='Priyanka',Product__c=selectedProducts[0].id,Customer__c=customerId,Recordtypeid=recid);
+                    break;
+                }else if(ptype=='Account'){
+                    Bank_Account__c acc=new Bank_Account__c(Name=custList[0].name,Product__c=selectedProducts[0].id,Customer__c=custList[0].id);
                     acclist.add(acc);
+                    break;
                 }
-                }
+            }
+        }
         insert acclist;
         System.debug('accList :: '+acclist);
         pgRef=new PageReference('/'+acclist[0].id);
         return pgRef;
-
-        }     
-        public PageReference createCustomer() {
+    }
+    public PageReference createCustomer() {
+        Customer__c cust=new Customer__c(Name=customerName,DOB__c=customerDOB,Phone__c=customerPhone,Street__c=customerStreet,City__c=customerCity,Postal_Code__c=customerCode,State__c=customerState,Country__c=customerCountry);
+        system.debug('inside createCustomer '+cust);
+        insert cust;
         system.debug('inside createCustomer');
-               PageReference pgRef = ApexPages.currentPage();
-        pgRef = new PageReference('/apex/BuyProduct');
+        PageReference pgRef = ApexPages.currentPage();
+        pgRef = new PageReference('/apex/BuyProduct?id='+cust.Id) ;
         pgRef.setRedirect(true);
         return pgRef;
-
-    }
-        
-
-}
+    }}
