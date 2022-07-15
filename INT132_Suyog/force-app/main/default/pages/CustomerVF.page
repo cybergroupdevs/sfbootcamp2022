@@ -11,11 +11,13 @@
         h2 {
         font-size: 12px;
         }
+        
         .dataTable{
         border-radius: 10px;
         }
 
         .dataTable  th{
+		
         padding: 11px 2px 10px 5px;
         }
 
@@ -103,7 +105,7 @@
                             <apex:inputText value="{!customerCountry}" id="Country" />
                         </td>
                     </tr>
-                 
+
                 </table>
                 <apex:commandButton value="Create" id="createNewCustomer" action="{!createNewCustomer}" />
            </apex:pageBlock>
